@@ -17,37 +17,20 @@
             color: #333;
         }
 
-        .main-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 80%;
-            max-width: 1200px;
-        }
-
-        .text-container {
+        .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 45%;
-            height: 500px; /* Aumentei a altura do texto para acompanhar */
+            width: 60%;
+            max-width: 600px;
+            height: 400px; /* Ajustei a altura para o tamanho mais adequado */
             position: relative;
-        }
-
-        .photos-container {
-            background: rgba(255, 255, 255, 0.8);
-            width: 50%;
-            height: 500px; /* Mantendo a altura maior */
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
         }
 
         .title {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 10px;
         }
@@ -78,18 +61,14 @@
             }
         }
 
-        .hidden {
-            display: none;
-        }
-
         .photo {
             position: absolute;
-            width: 300px; /* Aumentei o tamanho das fotos para 300px */
+            width: 150px; /* Ajustei o tamanho das fotos para ficarem mais visíveis, mas não grandes demais */
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
 
-        /* Ajuste para as fotos ao redor do quadrado */
+        /* Fotos nos cantos */
         .photo.top-left {
             top: 10px;
             left: 10px;
@@ -110,47 +89,36 @@
             right: 10px;
         }
 
-        /* Foto 5 centralizada dentro do quadrado */
-        .photo.top-outside {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px; /* Foto 5 maior ainda, 350px */
-        }
-
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="text-container" id="textContainer">
-            <h1 class="title">Oi cabeçuda kkk</h1>
-            <p class="subtitle">clica nesse coração, não vai demora</p>
-            <button id="revealButton" class="heart-button">❤</button>
-        </div>
-
-        <div class="photos-container" id="photosContainer">
-            <img src="foto1.png" class="photo top-left" id="photo1" />
-            <img src="foto2.png" class="photo top-right" id="photo2" />
-            <img src="foto3.png" class="photo bottom-left" id="photo3" />
-            <img src="foto4.png" class="photo bottom-right" id="photo4" />
-            <img src="foto5.png" class="photo top-outside" id="photo5" />
-        </div>
+    <div class="container" id="container">
+        <h1 class="title">Oi cabeçuda kkk</h1>
+        <p class="subtitle">clica nesse coração, não vai demora</p>
+        <button id="revealButton" class="heart-button">❤</button>
+        
+        <!-- Imagens nos cantos do quadrado -->
+        <img src="foto1.png" class="photo top-left" id="photo1" />
+        <img src="foto2.png" class="photo top-right" id="photo2" />
+        <img src="foto3.png" class="photo bottom-left" id="photo3" />
+        <img src="foto4.png" class="photo bottom-right" id="photo4" />
+        <img src="foto5.png" class="photo top-outside" id="photo5" />
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const revealButton = document.getElementById('revealButton');
-            const textContainer = document.getElementById('textContainer');
-            const photosContainer = document.getElementById('photosContainer');
+            const container = document.getElementById('container');
 
             revealButton.addEventListener('click', () => {
-                textContainer.style.transform = 'rotateY(90deg)';
+                container.style.transform = 'rotateY(90deg)';
                 setTimeout(() => {
-                    textContainer.innerHTML = `
+                    container.innerHTML = `
+                        <h1 class="title">Surpresa!</h1>
                         <p id="typedText"></p>
                         <button id="secondaryButton" class="heart-button">❤</button>
                     `;
-                    textContainer.style.transform = 'rotateY(0deg)';
+                    container.style.transform = 'rotateY(0deg)';
                     startTyping();
                     showPhotos();
                 }, 1000);
@@ -181,7 +149,7 @@
                 let currentPhoto = 0;
 
                 function showNextPhoto() {
-                    photos.forEach((photo, index) => {
+                    photos.forEach((photo) => {
                         photo.style.opacity = 0;
                     });
 
